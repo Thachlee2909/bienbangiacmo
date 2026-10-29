@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+
+    <title>
+        Biên bản giấc mơ
+    </title>
+
+    <link href="style.css" rel="stylesheet"/>
+</head>
+
+<body data-view="home">
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <span class="dog">
+                    <img src="https://custom-doodle.com/wp-content/uploads/doodle/auto-draft/sanrio-sleeping-pompompurin-doodle.gif" width="200px">
+                </span>
+                Biên bản
+                <br/>
+                giấc mơ
+            </div>
+
+            <div class="sub">
+                Chuyện kể khi bạn ngủ
+            </div>
+
+            <nav class="nav">
+                <button class="active" data-page="home">
+                    Home Home Home
+                </button>
+
+                <button data-page="write">
+                    Chỗ ziết biên bản
+                </button>
+
+                <button data-page="today">
+                    Biên bản đã ziết (24H)
+                </button>
+            </nav>
+
+            <footer>
+                Chúc người ziết biên bản ngủ ngon ặ.
+            </footer>
+        </aside>
+
+        <main class="main">
+            <section class="hero">
+                <div>
+                    <h1>
+                        Welcome to
+                        <br/>
+                        Biên bản giấc mơ!
+                    </h1>
+
+                    <p>
+                        Within 24 hours.
+                    </p>
+                </div>
+
+                <div aria-hidden="true" class="art">
+                    <img src="https://i.pinimg.com/originals/33/4b/93/334b933565d6f7b6286cf51ab7bacbfe.gif" width="200px">
+                </div>
+            </section>
+
+            <section class="panel" id="editor">
+                <h2>
+                    ✏️ Today biên bản
+                </h2>
+
+                <p class="hint">
+                    Người chứng kiến ghi lại những gì đã nghe và thấy.
+                </p>
+
+                <form id="dreamForm">
+                    <div class="formgrid">
+                        <label class="field">
+                            Người đang ngủ
+
+                            <input
+                                id="sleeper"
+                                maxlength="60"
+                                placeholder="Tên người ngủ"
+                                required=""
+                            />
+                        </label>
+
+                        <label class="field">
+                            Người chứng kiến
+
+                            <input
+                                id="witness"
+                                maxlength="60"
+                                placeholder="Tên người ghi biên bản"
+                                required=""
+                            />
+                        </label>
+
+                        <label class="field">
+                            Thời điểm xảy ra
+
+                            <input
+                                id="occurred"
+                                required=""
+                                type="datetime-local"
+                            />
+                        </label>
+
+                        <label class="field">
+                            Mức độ
+
+                            <select id="weirdness">
+                                <option value="1">
+                                    ⭐ 1
+                                </option>
+
+                                <option value="2">
+                                    ⭐⭐ 2
+                                </option>
+
+                                <option selected="" value="3">
+                                    ⭐⭐⭐ 3
+                                </option>
+
+                                <option value="4">
+                                    ⭐⭐⭐⭐ 4
+                                </option>
+
+                                <option value="5">
+                                    ⭐⭐⭐⭐⭐ 5
+                                </option>
+                            </select>
+                        </label>
+
+                        <label class="field full">
+                            Đã nói gì?
+
+                            <textarea
+                                id="speech"
+                                maxlength="3000"
+                                placeholder="Ví dụ: 'bư solo dới purin'"
+                                required=""
+                            ></textarea>
+                        </label>
+
+                        <label class="field full">
+                            Đã làm gì? (không bắt buộc)
+
+                            <textarea
+                                id="actions"
+                                maxlength="2000"
+                                placeholder="Ví dụ: múa, quậy,... "
+                            ></textarea>
+                        </label>
+
+                        <label class="field full">
+                            Keyword gợi nhớ (không bắt buộc)
+
+                            <input
+                                id="quote"
+                                maxlength="300"
+                                placeholder="Keyword gợi nhớ"
+                            />
+                        </label>
+                    </div>
+
+                    <div class="actions">
+                        <button
+                            class="primary"
+                            id="saveButton"
+                            type="submit"
+                        >
+                            🐾 Lưu biên bản
+                        </button>
+
+                        <button
+                            class="secondary"
+                            type="reset"
+                        >
+                            Xóa nội dung nhập
+                        </button>
+                    </div>
+
+                    <!-- SUPABASE: Thông báo trạng thái -->
+                    <p
+                        id="statusMessage"
+                        role="status"
+                        aria-live="polite"
+                    ></p>
+                </form>
+            </section>
+
+            <section class="panel" id="records">
+                <div class="headrow">
+                    <h2>
+                        🌙 Biên bản gần đây
+                    </h2>
+
+                    <span class="count" id="counter">
+                        Tự động xóa sau 24 giờ
+                    </span>
+                </div>
+
+                <div class="entries" id="entries">
+                </div>
+            </section>
+
+            <section class="panel hidden" id="settings">
+                <h2>
+                    ⚙️ Cài đặt &amp; quyền riêng tư
+                </h2>
+
+                <p>
+                    Mọi biên bản được lưu trong trình duyệt này, không tự động gửi lên máy chủ. Sau 24 giờ kể từ lúc lưu, biên bản hết hạn và được xóa khi trang hoạt động hoặc mở lại.
+                </p>
+
+                <div class="actions">
+                    <button class="danger" id="clearAll">
+                        🗑️ Xóa tất cả biên bản
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div
+        class="toast"
+        id="toast"
+        role="status"
+    >
+    </div>
+
+    <!-- SUPABASE: JavaScript SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- SUPABASE: Project URL & Publishable Key -->
+    <script src="./supabase-config.js"></script>
+
+    <!-- Website JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
+```
