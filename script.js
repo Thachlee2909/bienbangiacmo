@@ -69,7 +69,7 @@
             const top = el('div', 'entrytop');
             const info = el('div');
             const title = el('h3', '', `🍮 ${record.sleeper_name} đang nói mớ`);
-            info.append(title, el('div', 'meta', `👀 ${record.witness_name} chứng kiến • 🕒 ${fmt(record.occurred_at)} • Lưu ${fmt(record.created_at)}`));
+            info.append(title, el('div', 'meta', `👀 ${record.witness_name} chứng kiến • ${fmt(record.occurred_at)} • Lưu ${fmt(record.created_at)}`));
 
             const timer = el('div', 'timer', `⏳ ${left(record.expires_at)}`);
             timer.dataset.expiresAt = record.expires_at;
@@ -77,12 +77,12 @@
             box.append(top);
 
             if (record.quote) box.append(el('div', 'quote', `“${record.quote}”`));
-            box.append(el('p', '', `💬 Đã nói: ${record.speech}`));
-            if (record.actions) box.append(el('p', '', `🎭 Đã làm: ${record.actions}`));
+            box.append(el('p', '', ` Đã nói: ${record.speech}`));
+            if (record.actions) box.append(el('p', '', ` Đã làm: ${record.actions}`));
             box.append(el('span', 'tag', `Mức độ kỳ lạ: ${'⭐'.repeat(record.weirdness)}`));
 
             const controls = el('div', 'actions');
-            const copy = el('button', 'smallbtn', '📋 Sao chép');
+            const copy = el('button', 'smallbtn', ' Sao chép');
             copy.type = 'button';
             copy.onclick = async () => {
                 const content = [
@@ -188,7 +188,7 @@
             return;
         }
         document.querySelectorAll('.timer[data-expires-at]').forEach((node) => {
-            node.textContent = `⏳ ${left(node.dataset.expiresAt)}`;
+            node.textContent = ` ${left(node.dataset.expiresAt)}`;
         });
     }
 
